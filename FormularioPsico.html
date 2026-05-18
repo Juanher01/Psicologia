@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Landing page para redirigir participantes a formularios de hábitos de consumo." />
+  <title>Estudio psicoconductual | Hábitos de consumo</title>
+
+  <style>
+    :root {
+      --azul: #071f4d;
+      --azul-2: #0d367d;
+      --verde: #087a3a;
+      --verde-2: #15a85d;
+      --fondo: #f5f9fc;
+      --texto: #182337;
+      --muted: #66758a;
+      --blanco: #ffffff;
+      --borde: rgba(7, 31, 77, 0.10);
+      --sombra: 0 24px 70px rgba(7, 31, 77, 0.18);
+      --radio: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--texto);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(21, 168, 93, 0.17), transparent 28%),
+        radial-gradient(circle at 87% 12%, rgba(13, 54, 125, 0.17), transparent 30%),
+        linear-gradient(135deg, #f8fbff 0%, #eef7f2 100%);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 380px;
+      height: 380px;
+      border-radius: 999px;
+      z-index: -1;
+      opacity: 0.17;
+      filter: blur(4px);
+    }
+
+    body::before {
+      left: -160px;
+      bottom: -150px;
+      background: var(--verde);
+    }
+
+    body::after {
+      right: -170px;
+      top: -150px;
+      background: var(--azul);
+    }
+
+    .page {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 46px;
+    }
+
+    .hero {
+      min-height: calc(100vh - 78px);
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(7, 31, 77, 0.08);
+      box-shadow: 0 12px 34px rgba(7, 31, 77, 0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: var(--blanco);
+      background: linear-gradient(135deg, #9b0715, var(--azul));
+      font-weight: 950;
+      letter-spacing: -1px;
+    }
+
+    .brand-text small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .brand-text strong {
+      color: #8d0b16;
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 18px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      color: var(--verde);
+      background: rgba(21, 168, 93, 0.10);
+      border: 1px solid rgba(21, 168, 93, 0.18);
+      font-size: 0.92rem;
+      font-weight: 850;
+    }
+
+    .pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--verde-2);
+      box-shadow: 0 0 0 0 rgba(21, 168, 93, 0.7);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      70% { box-shadow: 0 0 0 12px rgba(21, 168, 93, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(21, 168, 93, 0); }
+    }
+
+    h1 {
+      max-width: 760px;
+      color: var(--azul);
+      font-size: clamp(2.38rem, 6vw, 5.45rem);
+      line-height: 0.97;
+      letter-spacing: -0.075em;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--verde);
+    }
+
+    .lead {
+      max-width: 660px;
+      margin-top: 22px;
+      color: #2c384a;
+      font-size: clamp(1rem, 1.55vw, 1.2rem);
+      line-height: 1.72;
+    }
+
+    .info-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.80);
+      border: 1px solid rgba(7, 31, 77, 0.08);
+      box-shadow: 0 10px 28px rgba(7, 31, 77, 0.07);
+      color: #283348;
+      font-size: 0.92rem;
+      font-weight: 760;
+    }
+
+    .pill svg {
+      width: 19px;
+      height: 19px;
+      color: var(--verde);
+      flex: 0 0 auto;
+    }
+
+    .panel {
+      position: relative;
+      padding: 28px;
+      border-radius: var(--radio);
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.76);
+      box-shadow: var(--sombra);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      animation: floatIn 0.75s ease both;
+    }
+
+    @keyframes floatIn {
+      from { transform: translateY(18px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 8px;
+      background: linear-gradient(90deg, var(--verde), var(--azul));
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .panel h2 {
+      color: var(--azul);
+      font-size: clamp(1.45rem, 2.6vw, 2.08rem);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+
+    .step-badge {
+      min-width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      color: var(--blanco);
+      background: linear-gradient(135deg, var(--azul), var(--verde));
+      box-shadow: 0 13px 30px rgba(11, 122, 56, 0.22);
+      font-weight: 950;
+    }
+
+    .question {
+      margin-bottom: 18px;
+      color: #344257;
+      line-height: 1.58;
+    }
+
+    .options {
+      display: grid;
+      gap: 14px;
+    }
+
+    .option-card {
+      width: 100%;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 18px;
+      border-radius: 22px;
+      border: 2px solid rgba(7, 31, 77, 0.08);
+      background: #ffffff;
+      cursor: pointer;
+      text-align: left;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    }
+
+    .option-card:hover,
+    .option-card:focus-visible {
+      outline: none;
+      transform: translateY(-4px);
+      border-color: rgba(21, 168, 93, 0.44);
+      box-shadow: 0 18px 42px rgba(7, 31, 77, 0.12);
+    }
+
+    .option-card.selected {
+      border-color: var(--verde);
+      background: linear-gradient(180deg, #ffffff, #f2fff8);
+      box-shadow: 0 18px 42px rgba(11, 122, 56, 0.15);
+    }
+
+    .icon-box {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 19px;
+      color: var(--verde);
+      background: rgba(21, 168, 93, 0.10);
+    }
+
+    .icon-box svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .option-title {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--azul);
+      font-size: 1.05rem;
+      font-weight: 920;
+    }
+
+    .option-copy {
+      display: block;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .arrow {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: var(--azul);
+      background: #eef4fb;
+      transition: transform 0.22s ease, background 0.22s ease, color 0.22s ease;
+    }
+
+    .option-card:hover .arrow,
+    .option-card.selected .arrow {
+      transform: translateX(4px);
+      color: var(--blanco);
+      background: var(--verde);
+    }
+
+    .actions {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      border: 0;
+      border-radius: 18px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 900;
+      transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .primary-btn {
+      padding: 16px 18px;
+      color: var(--blanco);
+      background: linear-gradient(135deg, var(--verde), var(--azul));
+      box-shadow: 0 18px 36px rgba(7, 31, 77, 0.20);
+    }
+
+    .primary-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 42px rgba(7, 31, 77, 0.24);
+    }
+
+    .primary-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.48;
+      box-shadow: none;
+    }
+
+    .secondary-btn {
+      padding: 14px 18px;
+      color: var(--azul);
+      background: #eef4fb;
+    }
+
+    .notice {
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 18px;
+      background: rgba(7, 31, 77, 0.05);
+      border: 1px solid rgba(7, 31, 77, 0.06);
+      color: #374459;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .footer-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 22px;
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(7, 31, 77, 0.08);
+      color: var(--azul);
+      font-weight: 820;
+      line-height: 1.4;
+    }
+
+    .footer-card svg {
+      width: 36px;
+      height: 36px;
+      color: var(--verde);
+      flex: 0 0 auto;
+    }
+
+    .toast {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      background: #eefaf3;
+      border: 1px solid rgba(11, 122, 56, 0.16);
+      color: #0b6330;
+      font-weight: 760;
+      line-height: 1.45;
+    }
+
+    .toast.show {
+      display: block;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(7, 31, 77, 0.55);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-box {
+      width: min(520px, 100%);
+      padding: 26px;
+      border-radius: 28px;
+      background: var(--blanco);
+      box-shadow: var(--sombra);
+      animation: pop 0.25s ease both;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-icon {
+      width: 70px;
+      height: 70px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      border-radius: 24px;
+      color: var(--blanco);
+      background: linear-gradient(135deg, var(--verde), var(--azul));
+    }
+
+    .modal-icon svg {
+      width: 38px;
+      height: 38px;
+    }
+
+    .modal h3 {
+      margin-bottom: 8px;
+      color: var(--azul);
+      font-size: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .modal p {
+      margin-bottom: 18px;
+      color: #3d485a;
+      line-height: 1.6;
+    }
+
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 8px;
+      }
+
+      .panel {
+        order: 2;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        width: min(100% - 22px, 1160px);
+        padding: 18px 0 28px;
+      }
+
+      .brand {
+        width: 100%;
+        border-radius: 22px;
+      }
+
+      h1 {
+        font-size: clamp(2.25rem, 15vw, 4rem);
+      }
+
+      .lead {
+        font-size: 1rem;
+      }
+
+      .panel {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .panel-header {
+        align-items: center;
+      }
+
+      .option-card {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 17px;
+      }
+
+      .icon-box {
+        width: 52px;
+        height: 52px;
+      }
+
+      .arrow {
+        display: none;
+      }
+
+      .modal-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .pill {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="titulo-principal">
+      <div>
+        <div class="brand" aria-label="Universidad Surcolombiana">
+          <div class="brand-mark">US</div>
+          <div class="brand-text">
+            <small>Universidad</small>
+            <strong>Surcolombiana</strong>
+          </div>
+        </div>
+
+        <div class="eyebrow">
+          <span class="pulse" aria-hidden="true"></span>
+          Estudio académico psicoconductual
+        </div>
+
+        <h1 id="titulo-principal">
+          Tu experiencia
+          <span>es importante</span>
+        </h1>
+
+        <p class="lead">
+          Participa en un cuestionario breve sobre hábitos de consumo. Tus respuestas serán usadas con fines académicos e investigativos, de manera anónima y confidencial.
+        </p>
+
+        <div class="info-strip" aria-label="Información del estudio">
+          <div class="pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+            Duración: 3–5 minutos
+          </div>
+          <div class="pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            Participación anónima
+          </div>
+          <div class="pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="M8 17v-6"></path><path d="M12 17V7"></path><path d="M16 17v-9"></path></svg>
+            Uso investigativo
+          </div>
+        </div>
+      </div>
+
+      <aside class="panel" aria-label="Selector de formulario">
+        <div class="panel-header">
+          <div>
+            <h2>Elige el formulario que corresponde a tu caso</h2>
+          </div>
+          <div class="step-badge" aria-hidden="true">1</div>
+        </div>
+
+        <p class="question">
+          Selecciona la opción que mejor describe tu experiencia actual o reciente. Luego te enviaremos al formulario correspondiente.
+        </p>
+
+        <div class="options" role="radiogroup" aria-label="Tipo de consumo">
+          <button class="option-card" type="button" data-type="vaper" role="radio" aria-checked="false">
+            <span class="icon-box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17h11a3 3 0 0 0 0-6h-1"></path><path d="M4 14h7"></path><path d="M18 7c1.5.8 2.4 2 2.4 3.5"></path><path d="M16.5 4c2.6 1.1 4.5 3.2 5 5.7"></path></svg>
+            </span>
+            <span>
+              <span class="option-title">Uso de vaper o cigarrillo electrónico</span>
+              <span class="option-copy">Para personas que usan o han usado vapeadores, pods o dispositivos electrónicos similares.</span>
+            </span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </button>
+
+          <button class="option-card" type="button" data-type="otro" role="radio" aria-checked="false">
+            <span class="icon-box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 15h12"></path><path d="M15 15h4a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H3"></path><path d="M8 11c-1-1-1-2 0-3"></path><path d="M12 11c-1-1-1-2 0-3"></path><path d="M16 11c-1-1-1-2 0-3"></path></svg>
+            </span>
+            <span>
+              <span class="option-title">Consumo de tabaco u otra sustancia fumada</span>
+              <span class="option-copy">Para personas que consumen o han consumido cigarrillo tradicional, tabaco u otra sustancia fumada.</span>
+            </span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+
+        <div class="actions">
+          <button id="continueBtn" class="primary-btn" type="button" disabled>Continuar al formulario</button>
+        </div>
+
+        <div id="toast" class="toast" role="status">
+          Selecciona una opción para continuar.
+        </div>
+
+        <p class="notice">
+          Antes de responder, lee el consentimiento informado incluido en el formulario. La participación es voluntaria y puedes retirarte cuando lo consideres necesario.
+        </p>
+
+        <div class="footer-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12h4l2-6 4 12 2-6h6"></path></svg>
+          <span>Tu participación contribuye al desarrollo de conocimiento en salud y comportamiento.</span>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <div class="modal" id="confirmModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <div class="modal-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+      </div>
+      <h3 id="modalTitle">¿Listo para continuar?</h3>
+      <p id="modalText">Te enviaremos al formulario correspondiente según la opción seleccionada.</p>
+      <div class="modal-actions">
+        <button class="secondary-btn" type="button" id="cancelBtn">Cambiar opción</button>
+        <button class="primary-btn" type="button" id="goBtn">Ir al formulario</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1) Reemplaza estas dos URLs por los enlaces reales de tus Google Forms.
+    const FORMULARIOS = {
+      vaper: "https://docs.google.com/forms/d/e/1FAIpQLSde2KwRb6adzQoHtdDa4gtLaAxPwLRwYyKaDf5z6xy1FP_bpg/viewform?usp=publish-editor",
+      otro: "https://forms.gle/YPbnA6Uve8NzQ8U19"
+    };
+
+    const optionCards = document.querySelectorAll(".option-card");
+    const continueBtn = document.getElementById("continueBtn");
+    const toast = document.getElementById("toast");
+    const modal = document.getElementById("confirmModal");
+    const modalText = document.getElementById("modalText");
+    const cancelBtn = document.getElementById("cancelBtn");
+    const goBtn = document.getElementById("goBtn");
+
+    let selectedType = null;
+
+    const labels = {
+      vaper: "uso de vaper o cigarrillo electrónico",
+      otro: "consumo de tabaco u otra sustancia fumada"
+    };
+
+    function selectOption(type) {
+      selectedType = type;
+      continueBtn.disabled = false;
+      toast.classList.remove("show");
+
+      optionCards.forEach((card) => {
+        const isSelected = card.dataset.type === type;
+        card.classList.toggle("selected", isSelected);
+        card.setAttribute("aria-checked", String(isSelected));
+      });
+    }
+
+    function openModal() {
+      if (!selectedType) {
+        toast.classList.add("show");
+        return;
+      }
+
+      modalText.textContent = `Seleccionaste: ${labels[selectedType]}. Al continuar se abrirá el formulario correspondiente.`;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      goBtn.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      continueBtn.focus();
+    }
+
+    function redirectToForm() {
+      const url = FORMULARIOS[selectedType];
+
+      if (!url || url.includes("URL_FORMULARIO")) {
+        alert("Falta reemplazar la URL del formulario en el código HTML.");
+        return;
+      }
+
+      window.location.href = url;
+    }
+
+    optionCards.forEach((card) => {
+      card.addEventListener("click", () => selectOption(card.dataset.type));
+
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          selectOption(card.dataset.type);
+        }
+      });
+    });
+
+    continueBtn.addEventListener("click", openModal);
+    cancelBtn.addEventListener("click", closeModal);
+    goBtn.addEventListener("click", redirectToForm);
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("open")) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
